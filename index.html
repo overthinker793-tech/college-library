@@ -1,74 +1,559 @@
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="kk">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>NUKOW Library — Басты бет</title>
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/chatbot.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Library</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f6f2;
+            color: #24352d;
+        }
+
+        header {
+            background: #173f32;
+            color: white;
+            padding: 22px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 22px;
+            font-size: 15px;
+        }
+
+        nav a:hover {
+            color: #b9e7c5;
+        }
+
+        .hero {
+            background: linear-gradient(120deg, #173f32, #36775b);
+            color: white;
+            padding: 70px 8%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 30px;
+        }
+
+        .hero-text {
+            max-width: 600px;
+        }
+
+        .hero h1 {
+            font-size: 46px;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            color: #dcece2;
+            font-size: 17px;
+            line-height: 1.7;
+            margin-bottom: 25px;
+        }
+
+        .hero img {
+            width: 250px;
+            max-width: 35%;
+            border-radius: 18px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 13px 22px;
+            border: none;
+            border-radius: 8px;
+            background: #d7f0d9;
+            color: #173f32;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: white;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            padding: 30px 8%;
+        }
+
+        .stat {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 3px 12px #00000008;
+        }
+
+        .stat h2 {
+            color: #36775b;
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
+
+        .section {
+            padding: 35px 8% 60px;
+        }
+
+        .section h2 {
+            font-size: 30px;
+            margin-bottom: 12px;
+        }
+
+        .description {
+            color: #6c7a71;
+            margin-bottom: 25px;
+        }
+
+        .tools {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .tools input,
+        .tools select {
+            padding: 13px;
+            border: 1px solid #d8e0d9;
+            border-radius: 8px;
+            background: white;
+            font-size: 15px;
+        }
+
+        .tools input {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .tools select {
+            min-width: 170px;
+        }
+
+        .book-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 22px;
+        }
+
+        .book {
+            background: white;
+            border-radius: 13px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px #00000009;
+            transition: transform 0.2s;
+        }
+
+        .book:hover {
+            transform: translateY(-5px);
+        }
+
+        .cover {
+            height: 190px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 65px;
+        }
+
+        .cover1 { background: #e8d7bd; }
+        .cover2 { background: #cbded2; }
+        .cover3 { background: #e8d1d1; }
+        .cover4 { background: #d5d4ed; }
+        .cover5 { background: #dce6bc; }
+        .cover6 { background: #f0dfb7; }
+        .cover7 { background: #c8dce8; }
+        .cover8 { background: #e6d0b8; }
+
+        .book-info {
+            padding: 18px;
+        }
+
+        .category {
+            color: #39815d;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .book h3 {
+            margin: 10px 0 7px;
+            font-size: 17px;
+        }
+
+        .author {
+            color: #7b847e;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .status {
+            display: inline-block;
+            background: #e0f4e5;
+            color: #247143;
+            padding: 6px 9px;
+            border-radius: 5px;
+            font-size: 12px;
+            margin-bottom: 15px;
+        }
+
+        .unavailable {
+            background: #fbe4e1;
+            color: #b13e34;
+        }
+
+        .book button {
+            width: 100%;
+            padding: 11px;
+            border: none;
+            border-radius: 7px;
+            background: #214f3b;
+            color: white;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .book button:hover {
+            background: #36775b;
+        }
+
+        .book button:disabled {
+            background: #a8b1aa;
+            cursor: not-allowed;
+        }
+
+        .empty {
+            display: none;
+            padding: 30px;
+            text-align: center;
+            color: #6c7a71;
+            grid-column: 1 / -1;
+        }
+
+        .about {
+            background: #e7eee7;
+            padding: 45px 8%;
+            text-align: center;
+        }
+
+        .about h2 {
+            margin-bottom: 15px;
+        }
+
+        .about p {
+            max-width: 650px;
+            margin: auto;
+            line-height: 1.8;
+            color: #53665a;
+        }
+
+        footer {
+            background: #173f32;
+            color: white;
+            text-align: center;
+            padding: 25px;
+            line-height: 1.8;
+        }
+
+        @media (max-width: 1000px) {
+            .book-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            header {
+                padding: 20px 5%;
+            }
+
+            nav a {
+                margin: 0 10px 0 0;
+            }
+
+            .hero {
+                padding: 45px 5%;
+            }
+
+            .hero h1 {
+                font-size: 30px;
+            }
+
+            .hero img {
+                display: none;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+                padding: 25px 5%;
+            }
+
+            .section {
+                padding: 30px 5%;
+            }
+
+            .book-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
+
 <body>
-<header class="site-header">
-  <a class="brand" href="index.html"><span class="brand-mark">N</span><span>Nukow<span class="brand-light">Library</span></span></a>
-  <button class="menu-toggle" aria-label="Мәзірді ашу" aria-expanded="false">☰</button>
-  <nav class="nav">
-    <a class="active" href="index.html">Басты бет</a>
-    <a href="books.html">Кітаптар каталогы</a>
-    <a href="contact.html">Байланыс</a>
-  </nav>
-  <a class="nav-cta" href="contact.html#register">Оқырман болу <span>↗</span></a>
+
+<header>
+    <div class="logo">📚 College Library</div>
+
+    <nav>
+        <a href="#home">Басты бет</a>
+        <a href="#books">Кітаптар</a>
+        <a href="#about">Біз туралы</a>
+    </nav>
 </header>
 
-<main>
-  <section class="hero">
-    <div class="hero-copy">
-      <div class="eyebrow"><span class="eyebrow-dot"></span> NUKOW КІТАПХАНАСЫ</div>
-      <h1>Жаңа білімге<br><em>жол аш.</em></h1>
-      <p class="hero-text">Оқы, зертте, шабыттан. Оқу мен өзін-өзі дамытуға арналған кітаптар әлеміне қош келдің!</p>
-      <div class="hero-actions">
-        <a class="button button-primary" href="books.html">Каталогты қарау <span>→</span></a>
-        <a class="text-link" href="#about">Кітапхана туралы <span>↓</span></a>
-      </div>
-      <div class="hero-stats">
-        <div><strong>1 200+</strong><span>кітап қоры</span></div>
-        <div><strong>350+</strong><span>тұрақты оқырман</span></div>
-        <div><strong>12</strong><span>оқу бағыты</span></div>
-      </div>
-    </div>
-    <div class="hero-art" aria-label="Кітаптар иллюстрациясы">
-      <div class="art-orbit orbit-one"></div><div class="art-orbit orbit-two"></div>
-      <div class="book-stack">
-        <div class="book book-back"><span>KNOWLEDGE</span></div>
-        <div class="book book-mid"><span>ОЙЛАУ ӨНЕРІ</span></div>
-        <div class="book book-front"><span>БІЛІМ</span><small>күн сайын бір қадам</small></div>
-      </div>
-      <div class="floating-note note-top">ОҚУ — ӨСУ</div>
-      <div class="floating-note note-bottom">✦ Сенің келесі сүйікті кітабың осында</div>
-      <div class="hero-leaf">✳</div>
-    </div>
-  </section>
+<section class="hero" id="home">
+    <div class="hero-text">
+        <h1>Білімге бастар жол — кітаптан басталады</h1>
 
-  <section class="section feature-section" id="about">
-    <div class="section-heading">
-      <div><div class="eyebrow">БІЗДІҢ МҮМКІНДІКТЕР</div><h2>Кітапхана — сенің кеңістігің</h2></div>
-      <p>Сабаққа дайындалуға, ізденуге және жаңа идея табуға арналған орта.</p>
-    </div>
-    <div class="feature-grid">
-      <article class="feature-card"><span class="feature-icon green">▤</span><h3>Кең таңдау</h3><p>Оқулықтар, көркем әдебиет және кәсіби кітаптар бір каталогта.</p><a href="books.html">Кітаптарды көру →</a></article>
-      <article class="feature-card"><span class="feature-icon yellow">⌕</span><h3>Оңай іздеу</h3><p>Кітапты атауы, авторы немесе жанры бойынша ізде.</p><a href="books.html">Іздеуді бастау →</a></article>
-      <article class="feature-card"><span class="feature-icon lilac">♡</span><h3>Оқырман қауымы</h3><p>Кітапхана қызметі мен тіркелу туралы ақпаратты бір жерден тап.</p><a href="contact.html">Бізбен байланысу →</a></article>
-    </div>
-  </section>
+        <p>
+            Колледж кітапханасына қош келдіңіз!
+            Оқуға, ізденуге және жаңа білім алуға арналған
+            кітаптар әлемін ашыңыз.
+        </p>
 
-  <section class="quote-band">
-    <div class="quote-mark">“</div>
-    <blockquote>Кітап — үнсіз ұстаз, ал оқу — үздіксіз саяхат.</blockquote>
-    <p>NUKOW LIBRARY · ОҚУҒА ШАҚЫРАМЫЗ</p>
-  </section>
-</main>
+        <a href="#books" class="btn">Кітаптарды қарау →</a>
+    </div>
 
-<footer class="site-footer"><a class="brand footer-brand" href="index.html"><span class="brand-mark">К</span><span>College<span class="brand-light">Library</span></span></a><span>Білімге бастар жол осында.</span><span>© 2026 Колледж кітапханасы</span></footer>
-<script src="js/main.js"></script>
-<script src="js/chatbot.js"></script>
+    <img
+        src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=500"
+        alt="Кітапхана"
+    >
+</section>
+
+<section class="stats">
+    <div class="stat">
+        <h2>1 200+</h2>
+        <p>Кітап қоры</p>
+    </div>
+
+    <div class="stat">
+        <h2>350+</h2>
+        <p>Студент</p>
+    </div>
+
+    <div class="stat">
+        <h2>25+</h2>
+        <p>Кітап категориясы</p>
+    </div>
+</section>
+
+<section class="section" id="books">
+    <h2>Кітаптар каталогы</h2>
+
+    <p class="description">
+        Өзіңізге қажетті кітапты іздеңіз немесе категорияны таңдаңыз.
+    </p>
+
+    <div class="tools">
+        <input
+            type="text"
+            id="search"
+            placeholder="Кітап немесе автор аты..."
+        >
+
+        <select id="category">
+            <option value="all">Барлық категория</option>
+            <option value="programming">Бағдарламалау</option>
+            <option value="literature">Әдебиет</option>
+            <option value="science">Ғылым</option>
+            <option value="history">Тарих</option>
+        </select>
+    </div>
+
+    <div class="book-grid" id="bookGrid">
+
+        <div class="book" data-category="programming">
+            <div class="cover cover1">💻</div>
+            <div class="book-info">
+                <span class="category">Бағдарламалау</span>
+                <h3>HTML және CSS негіздері</h3>
+                <p class="author">Автор: Jon Duckett</p>
+                <span class="status">Қолжетімді</span>
+                <button onclick="borrowBook(this)">Кітапты алу</button>
+            </div>
+        </div>
+
+        <div class="book" data-category="literature">
+            <div class="cover cover2">📖</div>
+            <div class="book-info">
+                <span class="category">Әдебиет</span>
+                <h3>Абай жолы</h3>
+                <p class="author">Автор: Мұхтар Әуезов</p>
+                <span class="status">Қолжетімді</span>
+                <button onclick="borrowBook(this)">Кітапты алу</button>
+            </div>
+        </div>
+
+        <div class="book" data-category="science">
+            <div class="cover cover3">🔬</div>
+            <div class="book-info">
+                <span class="category">Ғылым</span>
+                <h3>Физика негіздері</h3>
+                <p class="author">Автор: Жалпы оқулық</p>
+                <span class="status">Қолжетімді</span>
+                <button onclick="borrowBook(this)">Кітапты алу</button>
+            </div>
+        </div>
+
+        <div class="book" data-category="history">
+            <div class="cover cover4">🏛️</div>
+            <div class="book-info">
+                <span class="category">Тарих</span>
+                <h3>Қазақстан тарихы</h3>
+                <p class="author">Автор: Оқу құралы</p>
+                <span class="status">Қолжетімді</span>
+                <button onclick="borrowBook(this)">Кітапты алу</button>
+            </div>
+        </div>
+
+        <div class="book" data-category="programming">
+            <div class="cover cover5">⌨️</div>
+            <div class="book-info">
+                <span class="category">Бағдарламалау</span>
+                <h3>JavaScript негіздері</h3>
+                <p class="author">Автор: David Flanagan</p>
+                <span class="status">Қолжетімді</span>
+                <button onclick="borrowBook(this)">Кітапты алу</button>
+            </div>
+        </div>
+
+        <div class="book" data-category="literature">
+            <div class="cover cover6">✍️</div>
+            <div class="book-info">
+                <span class="category">Әдебиет</span>
+                <h3>Қара сөздер</h3>
+                <p class="author">Автор: Абай Құнанбайұлы</p>
+                <span class="status">Қолжетімді</span>
+                <button onclick="borrowBook(this)">Кітапты алу</button>
+            </div>
+        </div>
+
+        <div class="book" data-category="science">
+            <div class="cover cover7">🌍</div>
+            <div class="book-info">
+                <span class="category">Ғылым</span>
+                <h3>География әлемі</h3>
+                <p class="author">Автор: Оқу құралы</p>
+                <span class="status unavailable">Қолжетімсіз</span>
+                <button disabled>Қазір қолжетімсіз</button>
+            </div>
+        </div>
+
+        <div class="book" data-category="history">
+            <div class="cover cover8">📜</div>
+            <div class="book-info">
+                <span class="category">Тарих</span>
+                <h3>Ұлы дала тарихы</h3>
+                <p class="author">Автор: Тарихи жинақ</p>
+                <span class="status">Қолжетімді</span>
+                <button onclick="borrowBook(this)">Кітапты алу</button>
+            </div>
+        </div>
+
+        <p class="empty" id="empty">
+            Ешқандай кітап табылмады.
+        </p>
+    </div>
+</section>
+
+<section class="about" id="about">
+    <h2>Біздің кітапхана туралы</h2>
+
+    <p>
+        College Library — студенттердің білімін жетілдіруге,
+        жаңа ақпарат іздеуге және кітап оқуға арналған
+        заманауи кітапхана сайты. Мұнда оқу материалдарын
+        оңай тауып, кітаптар каталогын қарай аласыз.
+    </p>
+</section>
+
+<footer>
+    <p>© 2026 College Library</p>
+    <p>Білім — болашақтың кілті 📚</p>
+</footer>
+
+<script>
+    const search = document.getElementById("search");
+    const category = document.getElementById("category");
+    const books = document.querySelectorAll(".book");
+    const empty = document.getElementById("empty");
+
+    function filterBooks() {
+        const query = search.value.toLowerCase().trim();
+        const selectedCategory = category.value;
+        let count = 0;
+
+        books.forEach(book => {
+            const text = book.innerText.toLowerCase();
+            const bookCategory = book.dataset.category;
+
+            const matchesSearch = text.includes(query);
+            const matchesCategory =
+                selectedCategory === "all" ||
+                bookCategory === selectedCategory;
+
+            if (matchesSearch && matchesCategory) {
+                book.style.display = "";
+                count++;
+            } else {
+                book.style.display = "none";
+            }
+        });
+
+        empty.style.display = count === 0 ? "block" : "none";
+    }
+
+    search.addEventListener("input", filterBooks);
+    category.addEventListener("change", filterBooks);
+
+    function borrowBook(button) {
+        const book = button.closest(".book");
+        const title = book.querySelector("h3").innerText;
+
+        alert(
+            "Сіз «" + title + "» кітабын таңдадыңыз!\n\n" +
+            "Кітапты алу үшін кітапхана қызметкеріне хабарласыңыз."
+        );
+    }
+</script>
+
 </body>
 </html>
